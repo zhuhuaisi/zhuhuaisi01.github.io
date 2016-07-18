@@ -1,0 +1,57 @@
+@charset "utf-8";
+/* CSS Document */
+a{ text-decoration:none; color:#999999;}
+.fl{ float:left;}
+.fr{ float:right;}
+.txt-c{ text-align:center;}
+/*--header--*/
+#Title{width:16rem; height:3.05rem; line-height:3.05rem; color:#ffffff; background:#344a61; text-align:center; font-size:0.6rem;}
+#Title img.icon1{width:3.7rem; height:1rem; display:inline-block; margin-top:0.75rem;}
+#Title span{ width:2.95rem; height:100%; display:block;}
+#Title span img{ width:0.9rem;}
+#Title span.fl{border-right:1px solid #4c6279;}
+#Title span.fr{border-left:1px solid #4c6279;}
+
+/*Content*/
+.Content{ padding:0 1rem;}
+.p_txt{ font-size:0.4rem; padding-top:1rem; color:#cccccc;}
+.line{ background:#e5e5e5; margin:0.8rem 0;}
+
+#banner{ padding:0 0 1rem 0;}
+#banner img{ width:100%;}
+.text b{ font-size:0.6rem; color:#171717; line-height:1rem;}
+.text p{ font-size:0.6rem; color:#656565;}
+
+#Ul{margin-top:0.8rem; margin-bottom:0.5rem;}
+#Ul li img{ width:4rem;}
+#Ul li .text{ width:8.87rem}
+
+#Ul2{ margin:0.5rem;}
+#Ul2 li{ margin:0.5rem; float:left; width:4rem; height:4rem; overflow:hidden;}
+#Ul2 li img{ width:100%;}
+
+.icon{ width:10.8rem; margin:0 auto;}
+.icon li{ width:2.5rem; margin:0.55rem; float:left;}
+.icon li img{ width:100%;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
