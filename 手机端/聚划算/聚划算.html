@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app='app'>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0 ,maximum-scale=1.0" >
@@ -8,86 +8,151 @@
 <title>聚划算</title>
 <link rel="stylesheet" type="text/css" href="css/base.css"/>
 <link rel="stylesheet" type="text/css" href="css/style.css"/>
-<script>
-;(function(win,doc){
-	function change(){
-		doc.documentElement.style.fontSize=doc.documentElement.clientWidth/320*20+'px';	
-	}	
-	change();
-	win.addEventListener('resize',change,false);
-})(window,document)
+<script type="text/javascript">
+	;(function(win,doc){
+		function change(){
+			doc.documentElement.style.fontSize=doc.documentElement.clientWidth/320*20+'px';
+		}
+		change();
+		win.addEventListener('resize',change,false);
+	})(window,document);
+	window.addEventListener('DOMContentLoaded',function(){
+		var oUl=document.querySelector('#Banner .banner-nav');
+		var oBtn=document.querySelector('#Banner .btnlist');
+		var aLi=oUl.children;
+		// var aImg=document.querySelector('#Banner .banner-nav li img');
+		var aAct=oBtn.children;
+		var x=0;
+		var iNow=0;
+		oBtn.addEventListener('touchstart',function(){
+			for (var i = 0; i < aAct.length; i++) {
+				var arr=[0,-16,-32,-48,-64,];
+				aAct[i].index=i;
+				aAct[i].onclick=function(){
+					for (var i = 0; i < aAct.length; i++) {
+						aAct[i].className='';
+						oUl.style.WebkitTransition='0.4s all ease';
+					}
+					this.className='active';
+					oUl.style.WebkitTransform='translate3d('+arr[this.index]+'rem,0,0)';
+				}
+			}
+		},false);
+		oUl.addEventListener('touchstart',function(ev){
+			oUl.style.WebkitTransition='none';
+			var downX=ev.targetTouches[0].pageX;
+			var disX=downX-x;
+			function fnMove(ev){
+				x=ev.targetTouches[0].pageX-disX;
+				oUl.style.WebkitTransform='translate3d('+x+'px,0,0)';
+			}
+			function fnEnd(ev){
+				oUl.removeEventListener('touchmove',fnMove,false);
+				oUl.removeEventListener('touchend',fnEnd,false);
+				oUl.style.WebkitTransition='0.4s all ease';
+				var upX=ev.changedTouches[0].pageX;
+				var dX=Math.abs(downX-upX);
+				if (dX>50) {
+					//改变显示li
+					if (downX-upX>0) {
+						iNow++;
+						if (iNow==aLi.length)iNow=aLi.length-1;
+						x=-iNow*aLi[0].offsetWidth;
+						oUl.style.WebkitTransform='translate3d('+x+'px,0,0)';
+					} else {
+						iNow--;
+						if (iNow==-1)iNow=0;
+						x=-iNow*aLi[0].offsetWidth;
+						oUl.style.WebkitTransform='translate3d('+x+'px,0,0)';
+					}
+				} else {
+					x=-iNow*aLi[0].offsetWidth;
+					oUl.style.WebkitTransform='translate3d('+x+'px,0,0)';
+				};
+			};
+			oUl.addEventListener('touchmove',fnMove,false);
+			oUl.addEventListener('touchend',fnEnd,false);
+			ev.preventDefault();
+		},false);
+	},false);
 </script>
 </head>
 
 <body>
 <div id="Title">
 	<span></span>
-    <img class="icon1" src="images/icon2.png">
+	<img class="icon1" src="images/icon2.png">
 </div>
 <div id="Banner">
-	<img src="images/banner.png">
-    <div class="btnbox">
-                <ul class="btnlist">
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li class="active"></li>
-                </ul>
-            </div>
+	<ul class="banner-nav">
+		<li><img src="img/1.jpg"></li>
+		<li><img src="img/2.jpg"></li>
+		<li><img src="img/3.jpg"></li>
+		<li><img src="img/4.jpg"></li>
+		<li><img src="img/5.jpg"></li>
+	</ul>
+	<div class="btnbox">
+		<ul class="btnlist">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
 </div>
 
 <div id="Ul1" class="clearfix">
 	<ul class="clearfix">
-    	<li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15.png"></span>
-                <font>商品</font>
-            </a>
-        </li>
-        <li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15-04.png"></span>
-                <font>生活</font>
-            </a>
-        </li>
-        <li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15-05.png"></span>
-                <font>品牌</font>
-            </a>
-        </li>
-        <li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15-06.png"></span>
-                <font>聚宝盆</font>
-            </a>
-        </li>
-        <li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15-07.png"></span>
-                <font>聚名品</font>
-            </a>
-        </li>
-        <li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15-08.png"></span>
-                <font>聚家装</font>
-            </a>
-        </li>
-        <li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15-09.png"></span>
-                <font> 聚透</font>
-            </a>
-        </li>
-        <li>
-        	<a href="javascript:;">
-            	<span><img src="images/intro_15-10.png"></span>
-                <font> 客户端</font>
-            </a>
-        </li>
-    </ul>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15.png"></span>
+				<font>商品</font>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15-04.png"></span>
+				<font>生活</font>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15-05.png"></span>
+				<font>品牌</font>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15-06.png"></span>
+				<font>聚宝盆</font>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15-07.png"></span>
+				<font>聚名品</font>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15-08.png"></span>
+				<font>聚家装</font>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15-09.png"></span>
+				<font> 聚透</font>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span><img src="images/intro_15-10.png"></span>
+				<font> 客户端</font>
+			</a>
+		</li>
+	</ul>
 </div>
 <div class="content">
 <div id="Title2">
@@ -97,218 +162,218 @@
 
 <div id="Ul2">
 	<ul class="clearfix">
-    	<li class="clearfix">
-        	<div class="numb one">
-            	1
-            </div>
-            <img  class="img" src="images/intro_48.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥51
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb two">
-            	2
-            </div>
-            <img  class="img" src="images/intro_55.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥51
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb three">
-            	3
-            </div>
-            <img  class="img" src="images/intro_57.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥287
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb four">
-            	4
-            </div>
-            <img  class="img" src="images/intro_60.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥88
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb five">
-            	5
-            </div>
-            <img  class="img" src="images/intro_63.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥199
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb six">
-            	6
-            </div>
-            <img  class="img" src="images/intro_66.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥588
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb seven">
-            	7
-            </div>
-            <img  class="img" src="images/intro_72.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥4599
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb eight">
-            	8
-            </div>
-            <img  class="img" src="images/intro_77.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥51
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb nine">
-            	9
-            </div>
-            <img  class="img" src="images/intro_80.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥129
-            </div>
-        </li>
-        <li class="clearfix">
-        	<div class="numb ten">
-            	10
-            </div>
-            <img  class="img" src="images/intro_82.png">
-            <div class="text">
-            	已售 68423<br />
-                <font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
-            </div>
-            <div class="text2">
-            	￥9
-            </div>
-        </li>
-   	</ul>
+		<li class="clearfix">
+			<div class="numb one">
+				1
+			</div>
+			<img  class="img" src="images/intro_48.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥51
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb two">
+				2
+			</div>
+			<img  class="img" src="images/intro_55.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥51
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb three">
+				3
+			</div>
+			<img  class="img" src="images/intro_57.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥287
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb four">
+				4
+			</div>
+			<img  class="img" src="images/intro_60.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥88
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb five">
+				5
+			</div>
+			<img  class="img" src="images/intro_63.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥199
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb six">
+				6
+			</div>
+			<img  class="img" src="images/intro_66.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥588
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb seven">
+				7
+			</div>
+			<img  class="img" src="images/intro_72.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥4599
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb eight">
+				8
+			</div>
+			<img  class="img" src="images/intro_77.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥51
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb nine">
+				9
+			</div>
+			<img  class="img" src="images/intro_80.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥129
+			</div>
+		</li>
+		<li class="clearfix">
+			<div class="numb ten">
+				10
+			</div>
+			<img  class="img" src="images/intro_82.png">
+			<div class="text">
+				已售 68423<br />
+				<font>2.3</font>折   ￥<span style=" text-decoration:line-through;">299</span>
+			</div>
+			<div class="text2">
+				￥9
+			</div>
+		</li>
+	</ul>
 </div>
 <p class="p-txt nobcg">更多划算  逛起来！</p>
 <div class="list">
 	<dl class="clearfix">
-    	<dt class="bcg1">商品团</dt>
-        <dd><a href="javascript:;">服饰</a></dd>
-        <dd><a href="javascript:;">配饰</a></dd>
-        <dd><a href="javascript:;">美妆</a></dd>
-        <dd><a href="javascript:;">鞋包</a></dd>
-        <dd><a href="javascript:;">家具</a></dd>
-        <dd><a href="javascript:;">运动</a></dd>
-        <dd><a href="javascript:;">母婴</a></dd>
-        <dd><a href="javascript:;">电器</a></dd>
-        <dd><a href="javascript:;">服饰</a></dd>
-        <dd><a href="javascript:;">配饰</a></dd>
-        <dd><a href="javascript:;">美妆</a></dd>
-        <dd><a href="javascript:;">鞋包</a></dd>
-    </dl>
+		<dt class="bcg1">商品团</dt>
+		<dd><a href="javascript:;">服饰</a></dd>
+		<dd><a href="javascript:;">配饰</a></dd>
+		<dd><a href="javascript:;">美妆</a></dd>
+		<dd><a href="javascript:;">鞋包</a></dd>
+		<dd><a href="javascript:;">家具</a></dd>
+		<dd><a href="javascript:;">运动</a></dd>
+		<dd><a href="javascript:;">母婴</a></dd>
+		<dd><a href="javascript:;">电器</a></dd>
+		<dd><a href="javascript:;">服饰</a></dd>
+		<dd><a href="javascript:;">配饰</a></dd>
+		<dd><a href="javascript:;">美妆</a></dd>
+		<dd><a href="javascript:;">鞋包</a></dd>
+	</dl>
 </div>
 <p class="p-txt">精彩商品  逛起来！</p>
 <div class="list">
 	<dl class="clearfix">
-    	<dt class="bcg2">生活团</dt>
-        <dd><a href="javascript:;">美食</a></dd>
-        <dd><a href="javascript:;">教育</a></dd>
-        <dd><a href="javascript:;">酒店</a></dd>
-        <dd><a href="javascript:;">鞋包</a></dd>
-        <dd><a href="javascript:;">电影</a></dd>
-        <dd><a href="javascript:;">卡券</a></dd>
-        <dd><a href="javascript:;">母婴</a></dd>
-        <dd><a href="javascript:;">电器</a></dd>
-        <dd><a href="javascript:;">服饰</a></dd>
-        <dd><a href="javascript:;">教育</a></dd>
-        <dd><a href="javascript:;"></a></dd>
-        <dd><a href="javascript:;"></a></dd>
-    </dl>
+		<dt class="bcg2">生活团</dt>
+		<dd><a href="javascript:;">美食</a></dd>
+		<dd><a href="javascript:;">教育</a></dd>
+		<dd><a href="javascript:;">酒店</a></dd>
+		<dd><a href="javascript:;">鞋包</a></dd>
+		<dd><a href="javascript:;">电影</a></dd>
+		<dd><a href="javascript:;">卡券</a></dd>
+		<dd><a href="javascript:;">母婴</a></dd>
+		<dd><a href="javascript:;">电器</a></dd>
+		<dd><a href="javascript:;">服饰</a></dd>
+		<dd><a href="javascript:;">教育</a></dd>
+		<dd><a href="javascript:;"></a></dd>
+		<dd><a href="javascript:;"></a></dd>
+	</dl>
 </div>
 
 <p class="p-txt">生活品质  逛起来！</p>
 <div class="list">
 	<dl class="clearfix">
-    	<dt class="bcg3">品牌团</dt>
-        <dd><a href="javascript:;">七匹狼</a></dd>
-        <dd><a href="javascript:;">分红女..</a></dd>
-        <dd><a href="javascript:;">卓诗玛</a></dd>
-        <dd><a href="javascript:;">收纳博士</a></dd>
-        <dd><a href="javascript:;">电影</a></dd>
-        <dd><a href="javascript:;">卡券</a></dd>
-        <dd><a href="javascript:;">母婴</a></dd>
-        <dd><a href="javascript:;">电器</a></dd>
-        <dd><a href="javascript:;">服饰</a></dd>
-        <dd><a href="javascript:;">教育</a></dd>
-        <dd><a href="javascript:;">红豆</a></dd>
-        <dd><a href="javascript:;">曼秀雷敦</a></dd>
-    </dl>
+		<dt class="bcg3">品牌团</dt>
+		<dd><a href="javascript:;">七匹狼</a></dd>
+		<dd><a href="javascript:;">分红女..</a></dd>
+		<dd><a href="javascript:;">卓诗玛</a></dd>
+		<dd><a href="javascript:;">收纳博士</a></dd>
+		<dd><a href="javascript:;">电影</a></dd>
+		<dd><a href="javascript:;">卡券</a></dd>
+		<dd><a href="javascript:;">母婴</a></dd>
+		<dd><a href="javascript:;">电器</a></dd>
+		<dd><a href="javascript:;">服饰</a></dd>
+		<dd><a href="javascript:;">教育</a></dd>
+		<dd><a href="javascript:;">红豆</a></dd>
+		<dd><a href="javascript:;">曼秀雷敦</a></dd>
+	</dl>
 </div>
 <p class="p-txt">品牌折扣  逛起来！</p>
 <ul class="ul3">
 	<li><img src="images/intro_39.png"></li>
-    <li><img src="images/intro_40.png"></li>
-    <li><img src="images/intro_41.png"></li>
+	<li><img src="images/intro_40.png"></li>
+	<li><img src="images/intro_41.png"></li>
 </ul>
 </div>
 
 <footer class="foot">
-    	<div class="bottom-nav">
-            <a href="#">
-            	登录
-            </a>
-            <a href="#">注册</a>
-            <a href="#" class="top-tip">TOP<i></i></a>
-        </div>
-        <div class="copyright">
-        	<p class="copyright_menu">
-            	<a href="#">标准版</a>
-                <a href="#">电脑版</a>
-            </p>
-            <p class="cotyright-box">
-            	&copy;2013 浙B2-20080224   服务中心
-            </p>
-        </div>
-    </footer>
+		<div class="bottom-nav">
+			<a href="#">
+				登录
+			</a>
+			<a href="#">注册</a>
+			<a href="#" class="top-tip">TOP<i></i></a>
+		</div>
+		<div class="copyright">
+			<p class="copyright_menu">
+				<a href="#">标准版</a>
+				<a href="#">电脑版</a>
+			</p>
+			<p class="cotyright-box">
+				&copy;2013 浙B2-20080224   服务中心
+			</p>
+		</div>
+	</footer>
 </body>
 </html>
